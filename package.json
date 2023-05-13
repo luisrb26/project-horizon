@@ -1,0 +1,33 @@
+{
+  "name": "project-horizon",
+  "version": "1.0.0",
+  "description": "Teste Horizon",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon ./index.js localhost 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisrb26/project-horizon.git"
+  },
+  "keywords": [],
+  "author": "luisrb26",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luisrb26/project-horizon/issues"
+  },
+  "homepage": "https://github.com/luisrb26/project-horizon#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.31.1"
+  }
+}
