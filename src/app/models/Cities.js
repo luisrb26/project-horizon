@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Cities.associate = function (models) {
-    Cities.hasOne(models.airports, { foreignKey: 'city_id' });
+    Cities.hasMany(models.airports, { foreignKey: 'city_id' });
   };
   return Cities;
 };
