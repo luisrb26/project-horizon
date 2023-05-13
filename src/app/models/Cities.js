@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Airports = sequelize.define(
-    'airports',
+  const Cities = sequelize.define(
+    'cities',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(90),
         allowNull: false,
       },
-      cod_iata: {
-        type: DataTypes.STRING(3),
+      uf: {
+        type: DataTypes.STRING(2),
         allowNull: false,
       },
     },
@@ -22,5 +22,5 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
-  return Airports;
+  return Cities;
 };
