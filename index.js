@@ -16,8 +16,8 @@ const port = process.env.PORT;
 const airportRoutes = require('./src/app/routes/airportRoutes');
 
 db.sequelize
-  //   .sync({ force: true })
-  .sync()
+  .sync({ force: true })
+  // .sync()
   .then(() => {
     useRoutes();
     app.listen(port, () =>

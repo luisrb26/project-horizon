@@ -22,5 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
+  Airports.associate = function (models) {
+    Airports.belongsTo(models.cities, { foreignKey: 'city_id' });
+  };
   return Airports;
 };

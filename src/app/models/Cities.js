@@ -22,5 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
+  Cities.associate = function (models) {
+    Cities.hasOne(models.airports, { foreignKey: 'city_id' });
+  };
   return Cities;
 };
