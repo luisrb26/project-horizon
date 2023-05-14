@@ -9,15 +9,16 @@ class FlightController {
   async createFlight(req, res) {
     try {
       const { departure_time, origin_id, destination_id, classes } = req.body;
-
       // Creating flight info
       const flight = await Flights.create({
         flight_number: 'Teste',
         departure_time,
         origin_id,
         destination_id,
+        seats_availible: 0,
       });
 
+      let allSeats = 0;
       for (let i = 0; i < classes.length; i++) {
         let { type, name, qty_of_seats, price_per_seat } = classes[i];
         // Creating classes info and association
@@ -27,7 +28,10 @@ class FlightController {
           qty_of_seats,
           price_per_seat,
           flight_id: flight.id,
+          seats_availible: qty_of_seats,
         });
+
+        allSeats += qty_of_seats;
 
         // Generating seats name
         let seatsNames = [];
@@ -51,6 +55,9 @@ class FlightController {
             console.error('Error', error);
           });
       }
+
+      await flight.update({ seats_availible: allSeats });
+
       res.status(200).json({ msg: 'ok' });
       return;
     } catch (error) {

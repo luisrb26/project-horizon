@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DOUBLE,
         allowNull: false,
       },
+      seats_availible: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       underscored: true,
