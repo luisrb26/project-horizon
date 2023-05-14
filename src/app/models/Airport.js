@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       cod_iata: {
         type: DataTypes.STRING(3),
         allowNull: false,
+        unique: true,
       },
     },
     {
