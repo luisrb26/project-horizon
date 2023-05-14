@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      price_of_seats: {
+      price_per_seat: {
         type: DataTypes.DOUBLE,
         allowNull: false,
       },
