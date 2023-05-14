@@ -40,6 +40,23 @@ class FlightController {
       return;
     }
   }
+  async listAllFlights(req, res) {
+    try {
+      const AllFlights = await Flights.findAll({
+        include: [
+          {
+            model: FlightClasses,
+            attributes: { exclude: ['flight_id', 'flightId'] },
+          },
+        ],
+      });
+      res.status(200).json({ flights: AllFlights });
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
+    }
+  }
 }
 
 module.exports = new FlightController();
