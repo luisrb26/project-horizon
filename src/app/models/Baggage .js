@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       baggage_fee: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: false,
+        defaultValue: false,
       },
     },
     {
