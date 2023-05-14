@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        default: 1,
+      },
     },
     {
       underscored: true,
