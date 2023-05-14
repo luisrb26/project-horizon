@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(15),
         allowNull: false,
       },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
     {
       underscored: true,
@@ -35,5 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  Buyers.associate = function (models) {
+    Buyers.hasMany(models.tickets, { foreignKey: 'buyer_id' });
+  };
   return Buyers;
 };
