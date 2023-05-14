@@ -25,6 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'flight_classes_id',
     });
     Tickets.belongsTo(models.baggage);
+    Tickets.belongsTo(models.buyers);
+    Tickets.hasOne(models.seats);
   };
 
   return Tickets;
