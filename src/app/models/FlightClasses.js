@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   FlightClass.associate = function (models) {
     FlightClass.belongsTo(models.flights, { foreignKey: 'flight_id' });
+    FlightClass.hasMany(models.seats, { foreignKey: 'flight_class_id' });
   };
   return FlightClass;
 };
