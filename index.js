@@ -16,6 +16,7 @@ const port = process.env.PORT;
 const airportRoutes = require('./src/app/routes/airportRoutes');
 const flightRoutes = require('./src/app/routes/flightRoutes');
 const ticketRoutes = require('./src/app/routes/ticketRoutes');
+const authRoutes = require('./src/app/routes/authRoutes');
 
 db.sequelize
   // .sync({ force: true })
@@ -34,4 +35,5 @@ function useRoutes() {
   app.use('/airports', airportRoutes);
   app.use('/flights', flightRoutes);
   app.use('/tickets', ticketRoutes);
+  app.use('/auth', authRoutes);
 }
