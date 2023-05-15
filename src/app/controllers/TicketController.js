@@ -70,12 +70,14 @@ class TicketController {
         let { baggage, flight_id, flight_class_id } = buyers[i].tickets[y];
 
         // Finds the flight class
-        let classPrice = await flightsClasses.findOne({
-          attributes: ['price_per_seat'],
-          where: { id: buyers[i].tickets[y].flight_class_id },
+        let actualFlight = await flights.findOne({ where: { id: flight_id } });
+
+        // Finds the flight class
+        let flightClass = await flightsClasses.findOne({
+          where: { id: flight_class_id },
         });
 
-        let ticketPrice = classPrice.price_per_seat;
+        let ticketPrice = flightClass.price_per_seat;
 
         // Creates baggage if it has one
         if (baggage === 2) {
@@ -94,6 +96,7 @@ class TicketController {
           baggage = undefined;
         }
 
+        // Ticket creating
         await Tickets.create({
           price: ticketPrice,
           buyer_id: buyer.id,
@@ -101,6 +104,17 @@ class TicketController {
           flight_id,
           flight_classes_id: flight_class_id,
         });
+
+        // Updating Seats availible in Flight Class
+        await flightsClasses.update(
+          { seats_availible: flightClass.seats_availible - 1 },
+          { where: { id: flight_class_id } }
+        );
+        // Updating Seats availible in Flight
+        await flights.update(
+          { seats_availible: actualFlight.seats_availible - 1 },
+          { where: { id: flight_id } }
+        );
       }
     }
     res.sendStatus(200);
