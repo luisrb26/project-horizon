@@ -9,6 +9,12 @@ const db = {};
 
 const sequelize = new Sequelize(process.env.DB_URL, {
   dialect: process.env.DB_DIALECT,
+  dialectOptions: {
+    useUTC: false, // for reading from database
+    dateStrings: true,
+    typeCast: true,
+  },
+  timezone: '-03:00', // for writing to database
 });
 
 fs.readdirSync(models)
