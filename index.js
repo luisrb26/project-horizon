@@ -15,6 +15,7 @@ const port = process.env.PORT;
 // IMPORTAÇÃO DE ROTAS
 const airportRoutes = require('./src/app/routes/airportRoutes');
 const flightRoutes = require('./src/app/routes/flightRoutes');
+const ticketRoutes = require('./src/app/routes/ticketRoutes');
 
 db.sequelize
   // .sync({ force: true })
@@ -32,4 +33,5 @@ function useRoutes() {
   console.log('[server 🖥️  ] Importing Routes...');
   app.use('/airports', airportRoutes);
   app.use('/flights', flightRoutes);
+  app.use('/tickets', ticketRoutes);
 }
