@@ -4,6 +4,9 @@ const db = require('../db/conn');
 
 // MODELS
 const flights = db.flights;
+const Tickets = db.tickets;
+const Buyers = db.buyers;
+const Baggage = db.baggage;
 const flightsClasses = db.flight_classes;
 
 class TicketController {
@@ -45,6 +48,63 @@ class TicketController {
       res.status(500);
       return;
     }
+  }
+  async buyTickets(req, res) {
+    const { buyers } = req.body;
+
+    for (let i = 0; i < buyers.length; i++) {
+      let buyer = await Buyers.findOne({ where: { cpf: buyers[i].cpf } });
+      // Creates the buyer if cant find the informed CPF
+      if (!buyer) {
+        buyer = await Buyers.create({
+          first_name: buyers[i].first_name,
+          last_name: buyers[i].last_name,
+          email: buyers[i].email,
+          cpf: buyers[i].cpf,
+          birth_date: buyers[i].birth_date,
+          sex: buyers[i].sex,
+        });
+      }
+
+      for (let y = 0; y < buyers[i].tickets.length; y++) {
+        let { baggage, flight_id, flight_class_id } = buyers[i].tickets[y];
+
+        // Finds the flight class
+        let classPrice = await flightsClasses.findOne({
+          attributes: ['price_per_seat'],
+          where: { id: buyers[i].tickets[y].flight_class_id },
+        });
+
+        let ticketPrice = classPrice.price_per_seat;
+
+        // Creates baggage if it has one
+        if (baggage === 2) {
+          baggage = await Baggage.create({
+            identification: 'teste',
+            baggage_fee: true,
+          });
+          // Adds 10% to the price if it has baggage fee (status = 2)
+          ticketPrice = (ticketPrice * 1.1).toFixed(2);
+        } else if (baggage === 1) {
+          baggage = await Baggage.create({
+            identification: 'teste',
+            baggage_fee: false,
+          });
+        } else if (baggage === 0) {
+          baggage = undefined;
+        }
+
+        await Tickets.create({
+          price: ticketPrice,
+          buyer_id: buyer.id,
+          baggage_id: baggage.id,
+          flight_id,
+          flight_classes_id: flight_class_id,
+        });
+      }
+    }
+    res.sendStatus(200);
+    return;
   }
 }
 
