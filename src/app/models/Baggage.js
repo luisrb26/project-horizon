@@ -7,10 +7,12 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
+        unique: true,
       },
       identification: {
         type: DataTypes.STRING(40),
         allowNull: false,
+        unique: true,
       },
       baggage_fee: {
         type: DataTypes.BOOLEAN,

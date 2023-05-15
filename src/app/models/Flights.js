@@ -7,10 +7,12 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
+        unique: true,
       },
       flight_number: {
         type: DataTypes.STRING(40),
         allowNull: false,
+        unique: true,
       },
       departure_time: {
         type: DataTypes.DATE,

@@ -7,18 +7,20 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
+        unique: true,
       },
       first_name: {
         type: DataTypes.STRING(90),
         allowNull: false,
       },
       last_name: {
-        type: DataTypes.STRING(2),
+        type: DataTypes.STRING(90),
         allowNull: false,
       },
       cpf: {
         type: DataTypes.STRING(11),
         allowNull: false,
+        unique: true,
       },
       birth_date: {
         type: DataTypes.DATEONLY,
