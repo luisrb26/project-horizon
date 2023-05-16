@@ -40,9 +40,8 @@ class AuthController {
 
     res.status(200).json({
       message: 'You are authenticated',
-      token: userToken.token,
-      expires_in: userToken.expira_em,
       userId: user.id,
+      token: userToken,
     });
   }
 }
