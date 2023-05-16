@@ -1,10 +1,23 @@
 const { body, param, check, validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // MODELS
 const db = require('../db/conn');
 
 exports.createFlight = [
+  check('authorization')
+    .notEmpty()
+    .withMessage('É necessário informar um token de autorização')
+    .custom((value, { req }) => {
+      const token = req.headers.authorization.split(' ')[1]; // assuming Bearer token format
+      jwt.verify(token, process.env.JWT_KEY, (err, user) => {
+        if (err) {
+          throw new Error('Token inválido');
+        }
+      });
+      return true;
+    }),
   body('departure_time')
     .exists()
     .withMessage('departure_time is required')

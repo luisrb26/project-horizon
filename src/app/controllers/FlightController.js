@@ -5,8 +5,26 @@ const Flights = db.flights;
 const FlightClasses = db.flight_classes;
 const Seats = db.seats;
 
+// MIDDLEWARES
+const getToken = require('../middlewares/getToken');
+const getUserByToken = require('../middlewares/getUserByToken');
+
 class FlightController {
   async createFlight(req, res) {
+    try {
+      const token = getToken(req);
+      const loggedUser = await getUserByToken(token);
+
+      if (!loggedUser) {
+        res.status(401).json({ msg: 'You need to send a valid token' });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
+    }
+
     try {
       const { departure_time, origin_id, destination_id, classes } = req.body;
       // Creating flight info
