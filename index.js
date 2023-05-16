@@ -5,11 +5,6 @@ const app = express(cors({ origin: true }));
 const db = require('./src/app/db/conn');
 require('dotenv').config();
 
-// Carregando configurações para o express
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cors());
-
 const port = process.env.PORT;
 
 // IMPORTAÇÃO DE ROTAS
@@ -17,6 +12,11 @@ const airportRoutes = require('./src/app/routes/airportRoutes');
 const flightRoutes = require('./src/app/routes/flightRoutes');
 const ticketRoutes = require('./src/app/routes/ticketRoutes');
 const authRoutes = require('./src/app/routes/authRoutes');
+
+// Carregando configurações para o express
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors());
 
 db.sequelize
   // .sync({ force: true })
