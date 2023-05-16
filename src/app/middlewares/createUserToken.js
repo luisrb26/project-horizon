@@ -11,14 +11,22 @@ module.exports = async (user) => {
   );
 
   // Criando token
-  const token = jwt.sign(
-    {
-      id: user.id,
-      username: user.username,
-      expires_in: dataExpiracao,
-    },
-    key
-  );
+  let token = '';
+  try {
+    token = await jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+        expires_in: dataExpiracao,
+      },
+      key
+    );
+    console.log(token);
+    // Use the token here
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
 
-  return token;
+  return token.toString();
 };
